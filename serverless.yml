@@ -1,0 +1,48 @@
+service: user-crud
+
+plugins:
+  - serverless-offline
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  createUser:
+    handler: handler.createUser
+    events:
+      - http:
+          path: users
+          method: POST
+  readUser:
+    handler: handler.readUser
+    events:
+      - http:
+          path: users/{id}
+          method: GET
+          request: 
+            parameters: 
+              paths: 
+                id: true
+  updateUser:
+    handler: handler.updateUser
+    events:
+      - http:
+          path: users/{id}
+          method: PATCH
+          request: 
+            parameters: 
+              paths: 
+                id: true
+  deleteUser:
+    handler: handler.deleteUser
+    events:
+      - http:
+          path: users/{id}
+          method: delete
+          request: 
+            parameters: 
+              paths: 
+                id: true
