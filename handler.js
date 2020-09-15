@@ -1,9 +1,8 @@
 'use strict';
 
-const { result } = require('lodash');
 const db = require('./database');
 
-
+//Create
 module.exports.createUser = async event => {
   let sql = `INSERT INTO users (name) VALUES('${JSON.parse(event.body).name}')`;
 
@@ -22,10 +21,13 @@ module.exports.createUser = async event => {
   };
 };
 
+// Read
 module.exports.readUser = async event => {
   let sql = `SELECT * from users where id = '${event.pathParameters.id}'`;
 
   let result = await db.mysql.query(sql);
+
+  console.log(result)
 
   return {
     statusCode: 200,
@@ -40,6 +42,7 @@ module.exports.readUser = async event => {
   };
 };
 
+// Update
 module.exports.updateUser = async event => {
   let sql = `Update users SET name = '${JSON.parse(event.body).name}' where id = '${event.pathParameters.id}'`;
 
@@ -57,6 +60,7 @@ module.exports.updateUser = async event => {
   };
 };
 
+// Delete
 module.exports.deleteUser = async event => {
   let sql = `DELETE from users where id = '${event.pathParameters.id}'`;
 
@@ -73,5 +77,4 @@ module.exports.deleteUser = async event => {
     ),
   };
 };
-
 
